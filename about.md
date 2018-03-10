@@ -4,6 +4,8 @@ title: About
 permalink: /about/
 ---
 
-I am freelance developer. Currently doing more in backend, focused in Python and Django.
+nickname: 暗淡了乌云
 
-email: agus[at]python.web.id
+C++研发工程师，目前在网易云计算 @基础存储技术组 从事分布式存储系统相关的研发工作。
+
+email: demiaowu@163.com
