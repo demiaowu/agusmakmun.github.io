@@ -17,8 +17,8 @@ collections:
     permalink: /project/:path/
 
 social:
-    #- icon: fa-facebook
-    #  link: "#"
+    - icon: fa-weibo
+      link: "#"
     #- icon: fa-twitter
     #  link: "https://twitter.com/agusmakmun6"
     #- icon: fa-linkedin
