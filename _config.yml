@@ -1,11 +1,11 @@
 title: 暗淡了乌云's Blog
 description: My Personal Stack Problems
-author: Demiao Wu
+author: 暗淡了乌云
 github: https://github.com/demiaowu
 about: 逃出自己的肖申克
-disqus_shortname: stackproblems
+disqus_shortname: demiaowu
 google_analytics: UA-XXXXXXXX-Y
-avatar_url: /static/img/avatar.jpg
+avatar_url: /static/img/demiaowu.jpg
 
 enableTags: true
 tagarray: []
@@ -16,16 +16,16 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-facebook
-      link: "#"
-    - icon: fa-twitter
-      link: "https://twitter.com/agusmakmun6"
-    - icon: fa-linkedin
-      link: "https://www.linkedin.com/in/summonagus"
-    - icon: fa-stack-exchange
-      link: "#"
+    #- icon: fa-facebook
+    #  link: "#"
+    #- icon: fa-twitter
+    #  link: "https://twitter.com/agusmakmun6"
+    #- icon: fa-linkedin
+    #  link: "https://www.linkedin.com/in/summonagus"
+    #- icon: fa-stack-exchange
+    #  link: "#"
     - icon: fa-github
-      link: "https://github.com/agusmakmun"
+      link: "https://github.com/demiaowu"
 
 share:
   twitter_username: agusmakmun6
@@ -39,7 +39,7 @@ urls:
     - text: XML Feed
       url: /feed.xml
 
-url: "https://agusmakmun.github.io"
+url: "https://demiaowu.github.io"
 baseurl: ""
 paginate: 20
 per_page: 20
