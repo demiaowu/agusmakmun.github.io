@@ -121,8 +121,8 @@ if reply.commitIndex \< commitIndex，则发送Success(index = reply.commitIndex
 1; value = acceptedValue[reply.commitIndex+1])
 
 ### **Proposer Algorithm** 
-
-(Write(inputValue) -\> return bool)
+---- 
+Write(inputValue) -\> return bool
 
 1. 如果不是leader、或者Leader还没有初始化完成，直接返回false；
 
@@ -164,9 +164,16 @@ acceptedValue[reply:firstUnchosenIndex])。
 
 ## 算法分析
 
-**Notes 1**:
+### Leader election
 在Multi-paxos中，只有两种角色，proposer和acceptor，其中leader既是proposer，也是acceptor，其他的服务节点都是acceptor。因为现在没有Leader，那么也就是没有proposer，不能发起提案。
 
+### Log replication
+
+### CommitIndex advance
+
+### Crash recovery
+
+### Membership change
 
 ## 参考文献
 [1]. paxos-summay. 
