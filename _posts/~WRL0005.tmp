@@ -1,17 +1,17 @@
-分布式系统 - 一致性算法 之 Multi-Paxos
+---
+layout: post
+title:  "分布式系统 - 一致性算法 之 Multi-Paxos"
+date:   2018-03-15 23:18:10 +0700
+categories: [分布式,算法]
+---
 
-2018-03-15 23:18:10 +0700
+* Kramdown table of content
+{:toc, toc}
 
--   Kramdown table of content {:toc, toc}
+## 算法描述 
+当前multi-paxos没有权威的文献参考，目前大多采用的参考文献[1]的描述，这里首先给出其翻译版，然后分析其各个模块的细节，Lead election，CommitIndex Advance，Log Replication等。
 
-算法描述
---------
-
-当前multi-paxos没有权威的文献参考，目前大多采用的参考文献[1]的描述，这里首先给出其翻译版，然后分析其各个模块的细节，Lead
-election，CommitIndex Advance，Log Replication等。
-
-### 服务器状态
-
+### 服务器状态  
 **所有acceptor上面持久化的状态**
 
 | **状态**           | **解释**                                                |
@@ -41,7 +41,7 @@ lastLogIndex)。每个Log Entry包含如下内容：
 | nextIndex | 下一个可用的log entry的index                                                                                                                                                                                                |
 | prepared  | 如果 prepared 为true，那么proposer就不需要进行prepare阶段， 直接进行accept阶段，否则需要prepare阶段。prepared初始化为 false，当收到大多数acceptor的prepare reqeust的相应消息 noMoreAccepted为true时，会将prepared设置为true |
 
-### Prepare RPC (Phase 1)
+### **Prepare RPC** (Phase 1)
 
 **Request**:
 
@@ -64,7 +64,7 @@ lastLogIndex)。每个Log Entry包含如下内容：
 则设置minProposal = request. proposalId。并且保证拒绝所有的minProposal \<
 request. proposalId的accept请求。
 
-### Accpet RPC (Phase 2)
+### **Accpet RPC** (Phase 2)
 
 **Request**:
 
@@ -95,7 +95,7 @@ minProposal=request.proposalId;
 对于每一个index \< request.commitIndex的log entry，如果其acceptedProposal
 [index] == n，则可以设置其acceptedProposal [index] = “无穷大”
 
-### Success (Phase 3)
+### **Success** (Phase 3)
 
 **Request**:
 
@@ -123,56 +123,49 @@ acceptedValue[index] = request.value;
 if reply.commitIndex \< commitIndex，则发送Success(index = reply.commitIndex +
 1; value = acceptedValue[reply.commitIndex+1])
 
-### Proposer Algorithm
-
+### **Proposer Algorithm**   
+ 
 Write(inputValue) -\> return bool
 
 1: 如果不是leader、或者Leader还没有初始化完成，直接返回false；
 
-2: 如果prepared 为true
+2: 如果prepared 为true  
 
-     (a)Let index = nextIndex, nextIndex++.
+&nbsp;&nbsp;&nbsp;&nbsp; (a)Let index = nextIndex, nextIndex++.  
 
-     (b) Go to step 6.
+&nbsp;&nbsp;&nbsp;&nbsp; (b) Go to step 6.  
 
-3: 设置 index = firstUnchosenIndex and nextIndex = index + 1.
+3: 设置 index = firstUnchosenIndex and nextIndex = index + 1.  
 
-4: maxRound ++; 并生成一个新proposal number赋值给n
+4: maxRound ++; 并生成一个新proposal number赋值给n  
 
-5: 广播Prepare(n; index) 请求给所有的acceptors
+5: 广播Prepare(n; index) 请求给所有的acceptors  
 
-6: 当从大多数acceptor收到Prepare Response (reply:acceptedProposal,
-reply:acceptedValue, reply:noMoreAccepted)
+6: 当从大多数acceptor收到Prepare Response (reply:acceptedProposal, reply:acceptedValue, reply:noMoreAccepted)  
 
-    
-如果最大的reply.acceptedProposal不等于0，那么使用它的reply.acceptedValue，否则使用自己的inputValue;
+&nbsp;&nbsp;&nbsp;&nbsp; 如果最大的reply.acceptedProposal不等于0，那么使用它的reply.acceptedValue，否则使用自己的inputValue;  
 
-     如果所有的acceptor在返回的都是reply:noMoreAccepted = true,那么设置prepared
-= true;
+&nbsp;&nbsp;&nbsp;&nbsp; 如果所有的acceptor在返回的都是reply:noMoreAccepted = true,那么设置prepared = true;  
 
-7: 向所有的acceptor广播Accept(index; n; v) 请求
+7: 向所有的acceptor广播Accept(index; n; v) 请求  
 
-8: 当收到一个Accept response(reply:n, reply:firstUnchosenIndex)时。
+8: 当收到一个Accept response(reply:n, reply:firstUnchosenIndex)时。  
 
-     如果reply.n \> n，则从reply.n中设置maxRound，并设置prepared = false.
-跳转到Step 1.
+&nbsp;&nbsp;&nbsp;&nbsp; 如果reply.n \> n，则从reply.n中设置maxRound，并设置prepared = false. 跳转到Step 1.  
 
-     如果reply.firstUnchosenIndex ≤ lastLogIndex and
-acceptedProposal[reply:firstUnchosenIndex] = “无穷大” 那么就发送Success(index =
-reply:firstUnchosenIndex; value = acceptedValue[reply:firstUnchosenIndex])。
+&nbsp;&nbsp;&nbsp;&nbsp; 如果reply.firstUnchosenIndex ≤ lastLogIndex and acceptedProposal[reply:firstUnchosenIndex] = “无穷大”
+那么就发送Success(index = reply:firstUnchosenIndex; value = acceptedValue[reply:firstUnchosenIndex])。  
 
-9: 当接收到大多数acceptor的accept response，且reply.n = n,
-那么设置acceptedProposal[index] = “无穷大”，并且acceptedValue[index] = v.
+9: 当接收到大多数acceptor的accept response，且reply.n = n, 那么设置acceptedProposal[index] = “无穷大”，并且acceptedValue[index] = v.  
 
-10: 如果v == inputValue, return true.
+10: 如果v == inputValue, return true.  
 
-11: Go to step 2.
+11: Go to step 2.  
 
-算法分析
---------
+
+## 算法分析
 
 ### Leader election
-
 在Multi-paxos中，**只有两种角色，proposer和acceptor，其中leader既是proposer，也是acceptor，其他的服务节点都是acceptor。因为现在没有Leader，那么也就是没有proposer，不能发起提案**。
 
 ### Log replication
@@ -183,7 +176,8 @@ reply:firstUnchosenIndex; value = acceptedValue[reply:firstUnchosenIndex])。
 
 ### Membership change
 
-参考文献
---------
+## 参考文献
+[1]. paxos-summay. 
 
-[1]. paxos-summay.
+----------------
+
