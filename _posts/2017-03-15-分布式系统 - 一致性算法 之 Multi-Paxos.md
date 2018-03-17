@@ -5,6 +5,9 @@ date:   2018-03-15 23:18:10 +0700
 categories: [分布式,算法]
 ---
 
+* Kramdown table of content
+{:toc, toc}
+
 ## 算法描述 
 当前multi-paxos没有权威的文献参考，目前大多采用的参考文献[1]的描述，这里首先给出其翻译版，然后分析其各个模块的细节，Lead election，CommitIndex Advance，Log Replication等。
 
