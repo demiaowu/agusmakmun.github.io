@@ -6,7 +6,7 @@ categories: [分布式,算法]
 ---
 
 ## 算法描述 
-&nbsp;&nbsp;&nbsp;&nbsp; 当前multi-paxos没有权威的文献参考，目前大多采用的参考文献[1]的描述，这里首先给出其翻译版，然后分析其各个模块的细节，Lead election，CommitIndex Advance，Log Replication等。
+当前multi-paxos没有权威的文献参考，目前大多采用的参考文献[1]的描述，这里首先给出其翻译版，然后分析其各个模块的细节，Lead election，CommitIndex Advance，Log Replication等。
 
 ### 服务器状态  
 **所有acceptor上面持久化的状态**
