@@ -166,7 +166,7 @@ Write(inputValue) -\> return bool
 ## 算法分析
 
 ### Leader election
-在Multi-paxos中，只有两种角色，proposer和acceptor，其中leader既是proposer，也是acceptor，其他的服务节点都是acceptor。因为现在没有Leader，那么也就是没有proposer，不能发起提案。
+在Multi-paxos中，**只有两种角色，proposer和acceptor，其中leader既是proposer，也是acceptor，其他的服务节点都是acceptor。因为现在没有Leader，那么也就是没有proposer，不能发起提案**。。
 
 ### Log replication
 
