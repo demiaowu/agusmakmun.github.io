@@ -2,13 +2,17 @@
 
 layout: post
 
-title: “分布式系统 - 一致性算法 之 Multi-Paxos"
+title: "谁都不要拦我，我要学内核"
 
-date: 2018-03-15 23:18:10 +0700
+date: 2018-03-11 21:18:10 +0700
 
-categories: [分布式,算法]
+categories: [内核,Flag]
 
 \---
+
+分布式系统 - 一致性算法 之 Multi-Paxos
+
+2018-03-15 23:18:10 +0700
 
 Kramdown table of content {:toc, toc}
 
