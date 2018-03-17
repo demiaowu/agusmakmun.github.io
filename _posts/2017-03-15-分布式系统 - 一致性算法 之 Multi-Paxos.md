@@ -2,7 +2,7 @@
 
 2018-03-15 23:18:10 +0700
 
--   Kramdown table of content {:toc, toc}
+Kramdown table of content {:toc, toc}
 
 算法描述
 --------
