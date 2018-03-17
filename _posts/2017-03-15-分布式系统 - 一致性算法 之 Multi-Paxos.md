@@ -120,25 +120,25 @@ acceptedValue[index] = request.value;
 if reply.commitIndex \< commitIndex，则发送Success(index = reply.commitIndex +
 1; value = acceptedValue[reply.commitIndex+1])
 
-### **Proposer Algorithm** 
----- 
+### **Proposer Algorithm**   
+ 
 Write(inputValue) -\> return bool
 
-1. 如果不是leader、或者Leader还没有初始化完成，直接返回false；
+1: 如果不是leader、或者Leader还没有初始化完成，直接返回false；
 
-2. 如果prepared 为true
+2: 如果prepared 为true
 
 &nbsp;&nbsp;&nbsp;&nbsp; (a)Let index = nextIndex, nextIndex++.
 
 &nbsp;&nbsp;&nbsp;&nbsp; (b) Go to step 6.
 
-3. 设置 index = firstUnchosenIndex and nextIndex = index + 1.
+3: 设置 index = firstUnchosenIndex and nextIndex = index + 1.
 
-4. maxRound ++; 并生成一个新proposal number赋值给n
+4: maxRound ++; 并生成一个新proposal number赋值给n
 
-5. 广播Prepare(n; index) 请求给所有的acceptors
+5: 广播Prepare(n; index) 请求给所有的acceptors
 
-6. 当从大多数acceptor收到Prepare Response (reply:acceptedProposal,
+6: 当从大多数acceptor收到Prepare Response (reply:acceptedProposal,
 reply:acceptedValue, reply:noMoreAccepted)
 
 &nbsp;&nbsp;&nbsp;&nbsp; 如果最大的reply.acceptedProposal不等于0，那么使用它的reply.acceptedValue，否则使用自己的inputValue;
@@ -146,9 +146,9 @@ reply:acceptedValue, reply:noMoreAccepted)
 &nbsp;&nbsp;&nbsp;&nbsp; 如果所有的acceptor在返回的都是reply:noMoreAccepted = true,那么设置prepared =
 true;
 
-7. 向所有的acceptor广播Accept(index; n; v) 请求
+7: 向所有的acceptor广播Accept(index; n; v) 请求
 
-8. 当收到一个Accept response(reply:n, reply:firstUnchosenIndex)时。
+8: 当收到一个Accept response(reply:n, reply:firstUnchosenIndex)时。
 
 &nbsp;&nbsp;&nbsp;&nbsp; 如果reply.n \> n，则从reply.n中设置maxRound，并设置prepared = false. 跳转到Step 1.
 
@@ -156,11 +156,11 @@ true;
 那么就发送Success(index = reply:firstUnchosenIndex; value =
 acceptedValue[reply:firstUnchosenIndex])。
 
-9. 当接收到大多数acceptor的accept response，且reply.n = n, 那么设置acceptedProposal[index] = “无穷大”，并且acceptedValue[index] = v.
+9: 当接收到大多数acceptor的accept response，且reply.n = n, 那么设置acceptedProposal[index] = “无穷大”，并且acceptedValue[index] = v.
 
-10. 如果v == inputValue, return true.
+10: 如果v == inputValue, return true.
 
-11. Go to step 2.
+11: Go to step 2.
 
 ## 算法分析
 
